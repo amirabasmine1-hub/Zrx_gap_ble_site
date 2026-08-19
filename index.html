@@ -22,12 +22,9 @@
   body{ margin:0; background: var(--bg); color: var(--text); font-family: 'Vazirmatn', sans-serif; overflow-x: hidden; }
   ::selection{ background: var(--amber); color: #1c1c3a; }
   a{ color: inherit; }
-  .pixel-field{
-    position: fixed; inset: 0; z-index: -1;
-    background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-    background-size: 32px 32px; background-color: var(--bg);
-  }
+  .pixel-field{ position: fixed; inset: 0; z-index: -1;
+    background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 32px 32px; background-color: var(--bg); }
   .glow{ position: fixed; z-index: -1; border-radius: 50%; filter: blur(90px); opacity: 0.35; }
   .glow.one{ width: 420px; height: 420px; background: var(--teal); top: -120px; right: -100px; }
   .glow.two{ width: 380px; height: 380px; background: var(--pink); bottom: -100px; left: -120px; }
@@ -72,9 +69,19 @@
   .game-card h3{ font-size: 1.5rem; margin: 0 0 10px; }
   .game-card p{ color: var(--muted); line-height: 1.9; margin: 0; }
   .blocks-deco{ position: absolute; left: -20px; bottom: -20px; width: 120px; height: 120px;
-    background: repeating-linear-gradient(0deg, rgba(255,255,255,0.06) 0 20px, transparent 20px 40px),
-      repeating-linear-gradient(90deg, rgba(255,255,255,0.06) 0 20px, transparent 20px 40px);
+    background: repeating-linear-gradient(0deg, rgba(255,255,255,0.06) 0 20px, transparent 20px 40px), repeating-linear-gradient(90deg, rgba(255,255,255,0.06) 0 20px, transparent 20px 40px);
     opacity: 0.5; transform: rotate(8deg); }
+  .gallery{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+  .shot{ aspect-ratio: 16/10; border-radius: 14px; overflow: hidden; position: relative; border: 1px solid var(--block-border); background: var(--panel); cursor: pointer; }
+  .shot img{ width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .35s ease; }
+  .shot:hover img{ transform: scale(1.08); }
+  .shot-fallback{ width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--muted); font-size: 0.85rem; background: linear-gradient(150deg, var(--panel) 0%, var(--bg) 100%); }
+  .shot-fallback span{ font-size: 1.8rem; }
+  .shot-label{ position: absolute; bottom: 0; right: 0; left: 0; padding: 10px 14px; font-size: 0.8rem; background: linear-gradient(to top, rgba(0,0,0,0.75), transparent); color: var(--text); text-align: right; }
+  .lightbox{ position: fixed; inset: 0; background: rgba(10,10,25,0.92); display: none; align-items: center; justify-content: center; z-index: 999; padding: 30px; }
+  .lightbox.open{ display: flex; }
+  .lightbox img{ max-width: 90vw; max-height: 85vh; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+  .lightbox-close{ position: absolute; top: 22px; left: 22px; background: var(--panel); border: 1px solid var(--block-border); color: var(--text); width: 42px; height: 42px; border-radius: 10px; font-size: 1.2rem; cursor: pointer; }
   footer{ text-align: center; padding: 50px 20px 60px; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--block-border); }
   footer b{ color: var(--teal); }
   @media (prefers-reduced-motion: reduce){ .scroll-cue{ animation: none; } }
@@ -95,8 +102,9 @@
     اینجا صفحه‌ی معرفی گروهمونه.
   </p>
   <div class="cta-row">
-    <a class="btn btn-primary" href="#roster">👥 اعضای گروه</a>
-    <a class="btn btn-ghost" href="#games">🎮 بازی‌هامون</a>
+    <a class="btn btn-primary" href="https://ble.ir/join/YOUR_INVITE_CODE" target="_blank">➕ پیوستن به گروه</a>
+    <a class="btn btn-ghost" href="#gallery">🖼️ اسکرین‌شات‌ها</a>
+    <a class="btn btn-ghost" href="#roster">👥 اعضای گروه</a>
   </div>
   <span class="scroll-cue">SCROLL ▾</span>
 </header>
@@ -150,9 +158,63 @@
   </div>
 </section>
 
+<section id="gallery">
+  <span class="section-tag">// اسکرین‌شات‌ها</span>
+  <h2>لحظه‌های تو کال و بازی</h2>
+  <div class="gallery">
+    <div class="shot" onclick="openLightbox(this)">
+      <img src="screenshots/shot1.jpg" alt="اسکرین‌شات ماینکرفت" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="shot-fallback" style="display:none;"><span>⛏️</span>عکس رو توی پوشه screenshots بذار</div>
+      <div class="shot-label">ماینکرفت</div>
+    </div>
+    <div class="shot" onclick="openLightbox(this)">
+      <img src="screenshots/shot2.jpg" alt="اسکرین‌شات روبلاکس" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="shot-fallback" style="display:none;"><span>🕹️</span>عکس رو توی پوشه screenshots بذار</div>
+      <div class="shot-label">روبلاکس</div>
+    </div>
+    <div class="shot" onclick="openLightbox(this)">
+      <img src="screenshots/shot3.jpg" alt="اسکرین‌شات کال" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="shot-fallback" style="display:none;"><span>📞</span>عکس رو توی پوشه screenshots بذار</div>
+      <div class="shot-label">کال شبانه</div>
+    </div>
+    <div class="shot" onclick="openLightbox(this)">
+      <img src="screenshots/shot4.jpg" alt="اسکرین‌شات گروه" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="shot-fallback" style="display:none;"><span>🎉</span>عکس رو توی پوشه screenshots بذار</div>
+      <div class="shot-label">خاطرات</div>
+    </div>
+  </div>
+</section>
+
+<section id="join" style="text-align:center; padding-top:0;">
+  <div class="stat-card" style="display:block; max-width:520px; margin:0 auto;">
+    <h2 style="margin-bottom:14px;">می‌خوای بهمون بپیوندی؟</h2>
+    <p style="color:var(--muted); margin-bottom:24px; line-height:1.9;">فقط کافیه رو دکمه بزنی و وارد بله بشی.</p>
+    <a class="btn btn-primary" href="https://ble.ir/join/72V2iAgbdu" target="_blank">➕ پیوستن به گروه ZRX GAP BLE</a>
+  </div>
+</section>
+
 <footer>
   ساخته‌شده با ❤️ برای گروه <b>ZRX GAP BLE</b> — هر شب یه کال، یه دنیا خاطره.
 </footer>
 
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightbox(event)">✕</button>
+  <img id="lightbox-img" src="" alt="نمای بزرگ">
+</div>
+
+<script>
+  function openLightbox(shotEl){
+    const img = shotEl.querySelector('img');
+    if(img.style.display === 'none') return;
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox').classList.add('open');
+  }
+  function closeLightbox(e){
+    if(e.target.id === 'lightbox' || e.target.classList.contains('lightbox-close')){
+      document.getElementById('lightbox').classList.remove('open');
+    }
+  }
+</script>
+
 </body>
-  </html>
+</html>
