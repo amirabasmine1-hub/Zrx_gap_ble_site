@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بازار ZRX | فروشگاه گروه</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Vazirmatn:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0c0f0d;
+    --panel: #14201a;
+    --panel2: #182a20;
+    --lime: #b6ff3c;
+    --purple: #b98bff;
+    --gold: #ffcf6b;
+    --text: #eef4ee;
+    --muted: #8fa093;
+    --line: rgba(182,255,60,0.14);
+  }
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{ margin:0; background: var(--bg); color: var(--text); font-family: 'Vazirmatn', sans-serif; overflow-x: hidden; }
+  ::selection{ background: var(--lime); color: #0c0f0d; }
+  a{ color: inherit; text-decoration: none; }
+  .grain{ position: fixed; inset: 0; z-index: -2; background-image: radial-gradient(rgba(182,255,60,0.05) 1px, transparent 1px); background-size: 24px 24px; }
+  .glow{ position: fixed; z-index: -1; border-radius: 50%; filter: blur(110px); opacity: 0.28; }
+  .glow.a{ width: 460px; height: 460px; background: var(--lime); top: -140px; left: -120px; }
+  .glow.b{ width: 380px; height: 380px; background: var(--purple); bottom: -100px; right: -100px; }
+  header{ min-height: 78vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 50px 20px; position: relative; }
+  .badge{ font-family: 'Press Start 2P', cursive; font-size: 10px; letter-spacing: 2px; color: var(--bg); background: var(--lime); padding: 10px 18px; border-radius: 999px; margin-bottom: 26px; direction: ltr; }
+  h1{ font-size: clamp(2rem, 6.5vw, 4rem); line-height: 1.3; margin: 0 0 16px; font-weight: 900; }
+  h1 em{ font-style: normal; color: var(--lime); }
+  .subtitle{ max-width: 560px; color: var(--muted); font-size: 1.02rem; line-height: 1.95; margin-bottom: 30px; }
+  .cmd-box{ display: inline-flex; align-items: center; gap: 10px; background: var(--panel); border: 1px solid var(--line); padding: 14px 22px; border-radius: 12px; font-family: monospace; direction: ltr; font-size: 0.95rem; color: var(--lime); }
+  .cmd-box .dot{ width: 8px; height: 8px; border-radius: 50%; background: var(--lime); animation: blink 1.4s infinite; }
+  @keyframes blink{ 0%,100%{opacity:1} 50%{opacity:.25} }
+  section{ max-width: 1040px; margin: 0 auto; padding: 70px 24px; }
+  .tag{ font-family: 'Press Start 2P', cursive; font-size: 11px; color: var(--purple); direction: ltr; display: block; margin-bottom: 14px; }
+  h2{ font-size: clamp(1.5rem, 4vw, 2.2rem); margin: 0 0 8px; font-weight: 900; }
+  .section-note{ color: var(--muted); margin: 0 0 36px; line-height: 1.9; }
+  .listings{ display: flex; flex-direction: column; gap: 16px; }
+  .listing{ background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 24px 26px; display: grid; grid-template-columns: auto 1fr auto; gap: 20px; align-items: center; transition: border-color .2s ease, transform .2s ease; }
+  .listing:hover{ border-color: var(--lime); transform: translateX(-4px); }
+  .listing-icon{ width: 56px; height: 56px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; background: var(--panel2); border: 1px solid var(--line); }
+  .listing-body h3{ margin: 0 0 8px; font-size: 1.15rem; }
+  .price-row{ display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
+  .price-pill{ font-size: 0.82rem; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+  .price-pill.old{ text-decoration: line-through; opacity: 0.6; }
+  .price-pill.new{ color: var(--lime); border-color: var(--lime); font-weight: 700; }
+  .meta-row{ display: flex; gap: 14px; flex-wrap: wrap; font-size: 0.82rem; color: var(--muted); }
+  .meta-row .seller{ color: var(--gold); font-weight: 700; direction: ltr; display: inline-block; }
+  .listing-cta{ padding: 12px 20px; border-radius: 10px; background: var(--lime); color: var(--bg); font-weight: 800; font-size: 0.88rem; white-space: nowrap; }
+  .listing.empty-slot{ border-style: dashed; justify-content: center; text-align: center; color: var(--muted); display: block; padding: 30px; }
+  @media (max-width: 640px){ .listing{ grid-template-columns: 1fr; text-align: center; } .listing-icon{ margin: 0 auto; } .price-row, .meta-row{ justify-content: center; } }
+  .sell-card{ background: linear-gradient(160deg, var(--panel2) 0%, var(--panel) 100%); border: 1px solid var(--line); border-radius: 18px; padding: 40px; text-align: center; }
+  .sell-card h2{ margin-bottom: 14px; }
+  .sell-card p{ color: var(--muted); line-height: 1.95; margin-bottom: 26px; }
+  .sell-cmd{ display: inline-block; font-family: monospace; direction: ltr; background: var(--bg); color: var(--lime); padding: 14px 22px; border-radius: 10px; border: 1px solid var(--line); font-size: 0.95rem; }
+  footer{ text-align: center; padding: 46px 20px 60px; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--line); }
+  footer b{ color: var(--lime); }
+  @media (prefers-reduced-motion: reduce){ .cmd-box .dot{ animation: none; } }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="glow a"></div>
+<div class="glow b"></div>
+
+<header>
+  <span class="badge">ZRX MARKET • BALE</span>
+  <h1>هرچی داری بفروش،<br>هرچی میخوای <em>بخر</em>.</h1>
+  <p class="subtitle">
+    بازار داخلی گروه ZRX GAP BLE — یه لیست ساده و شفاف از چیزایی که
+    بچه‌های گروه می‌فروشن. پرداخت و هماهنگی مستقیم توی پیوی خود فروشنده انجام می‌شه.
+  </p>
+  <div class="cmd-box">
+    <span class="dot"></span>
+    /sell (چیزی که می‌فروشی رو بنویس)
+  </div>
+</header>
+
+<section id="listings">
+  <span class="tag">// لیست فروش</span>
+  <h2>چی موجوده؟</h2>
+  <p class="section-note">هماهنگی و پرداخت هر آیتم مستقیم با خود فروشنده‌ست، نه با گروه.</p>
+
+  <div class="listings">
+
+    <div class="listing">
+      <div class="listing-icon">📶</div>
+      <div class="listing-body">
+        <h3>کانفیگ اینترنت</h3>
+        <div class="price-row">
+          <span class="price-pill old">زمان نت ملی: گیگی ۱ میلیون</span>
+          <span class="price-pill new">زمان حال: گیگی هزار تومن</span>
+        </div>
+        <div class="meta-row">
+          <span>فروشنده: <span class="seller">zrx_erfan</span></span>
+          <span>ثبت‌شده: ۱۹ آگوست، ساعت ۲۳:۴۹</span>
+        </div>
+      </div>
+      <a class="listing-cta" href="https:ble.ir/join/72V2iAgbdu" target="_blank">برو تو گروه، پیداش کن</a>
+    </div>
+
+    <!-- برای هر آیتم جدید، یک بلوک .listing مثل بالا اضافه کن -->
+
+    <div class="listing empty-slot">
+      + جای خالی برای فروش بعدی — با دستور <b>/sell</b> ثبتش کن
+    </div>
+
+  </div>
+  <p class="section-note" style="margin-top:24px; margin-bottom:0;">
+    برای هماهنگی خرید، وارد گروه بشو و توی بخش «آنلاین شاپ» دنبال اسم فروشنده بگرد.
+  </p>
+</section>
+
+<section id="how-to-sell">
+  <div class="sell-card">
+    <span class="tag">// فروشنده شو</span>
+    <h2>می‌خوای بفروشی؟</h2>
+    <p>همین الان تو گروه بنویس، خودکار وارد لیست بازار می‌شی.</p>
+    <span class="sell-cmd">/sell (چیز فروشی رو بنویسید)</span>
+  </div>
+</section>
+
+<footer>
+  بازار <b>ZRX GAP BLE</b> — بدون واسطه، مستقیم با خود فروشنده هماهنگ کن.
+</footer>
+
+</body>
+</html>
