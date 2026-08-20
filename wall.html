@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دیوار خاطرات + قرعه‌کشی | ZRX GAP BLE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0d0a1a;
+    --panel: rgba(255,255,255,0.045);
+    --panel-solid: #191532;
+    --amber: #ffb84c;
+    --teal: #4ce6c9;
+    --pink: #ff6b8b;
+    --violet: #a78bfa;
+    --text: #f6f3ec;
+    --muted: #9c98bd;
+    --border: rgba(255,255,255,0.09);
+  }
+  *{ box-sizing: border-box; margin: 0; padding: 0; }
+  html{ scroll-behavior: smooth; }
+  body{ background: var(--bg); color: var(--text); font-family: 'Vazirmatn', sans-serif; overflow-x: hidden; }
+  ::selection{ background: var(--amber); color: #0d0a1a; }
+  a{ color: inherit; text-decoration: none; }
+
+  .bg-grid{
+    position: fixed; inset: 0; z-index: -3; background-color: var(--bg);
+    background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 15%, black 40%, transparent 90%);
+  }
+  .glow{ position: fixed; z-index: -2; border-radius: 50%; filter: blur(120px); opacity: 0.28; pointer-events: none; }
+  .glow.a{ width: 480px; height: 480px; background: var(--violet); top: -160px; right: -120px; }
+  .glow.b{ width: 400px; height: 400px; background: var(--teal); bottom: -140px; left: -100px; opacity: 0.2; }
+
+  nav{
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px clamp(20px, 5vw, 60px);
+    backdrop-filter: blur(16px);
+    background: rgba(13,10,26,0.65);
+    border-bottom: 1px solid var(--border);
+  }
+  .brand{ display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1rem; }
+  .brand .dot-mark{ width: 10px; height: 10px; border-radius: 3px; background: var(--amber); box-shadow: 0 0 12px var(--amber); }
+  .navlinks{ display: flex; gap: 26px; font-size: 0.86rem; color: var(--muted); }
+  .navlinks a{ transition: color .2s ease; }
+  .navlinks a:hover{ color: var(--amber); }
+  @media (max-width: 640px){ .navlinks{ display: none; } }
+
+  header{
+    padding: 90px 20px 50px;
+    text-align: center;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .badge{
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: 'Press Start 2P', cursive; font-size: 9px; letter-spacing: 2px;
+    color: var(--amber);
+    background: rgba(255,184,76,0.08);
+    border: 1px solid rgba(255,184,76,0.3);
+    padding: 10px 18px; border-radius: 999px;
+    margin-bottom: 28px; direction: ltr;
+  }
+  h1{ font-size: clamp(2rem, 6vw, 3.4rem); font-weight: 900; margin-bottom: 16px; letter-spacing: -0.01em; }
+  h1 span{
+    background: linear-gradient(90deg, var(--amber), var(--pink) 60%, var(--violet));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .subtitle{ max-width: 560px; color: var(--muted); font-size: 1rem; line-height: 1.95; }
+
+  section{ max-width: 1080px; margin: 0 auto; padding: 40px 24px 100px; }
+  .kicker{
+    font-family: 'Press Start 2P', cursive; font-size: 10px; color: var(--teal);
+    direction: ltr; display: inline-block; margin-bottom: 16px;
+    padding: 6px 12px; border: 1px solid rgba(76,230,201,0.3); border-radius: 6px;
+    background: rgba(76,230,201,0.06);
+  }
+  h2{ font-size: clamp(1.5rem, 3.8vw, 2.2rem); font-weight: 900; margin-bottom: 10px; }
+  .section-note{ color: var(--muted); margin-bottom: 34px; line-height: 1.9; font-size: 0.95rem; }
+
+  .picker-card{
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 44px 30px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+  }
+  .picker-card::before{
+    content: "🎡"; position: absolute; font-size: 9rem; opacity: 0.05;
+    top: -10px; left: -20px; transform: rotate(-15deg);
+  }
+  .picker-card h2{ position: relative; z-index: 1; }
+  .picker-card p{ color: var(--muted); margin-bottom: 30px; position: relative; z-index: 1; }
+
+  .wheel-wrap{
+    position: relative; width: 240px; height: 240px; margin: 0 auto 30px;
+  }
+  .wheel{
+    width: 100%; height: 100%; border-radius: 50%;
+    background: conic-gradient(
+      #ffb84c 0deg 60deg,
+      #4ce6c9 60deg 120deg,
+      #ff6b8b 120deg 180deg,
+      #a78bfa 180deg 240deg,
+      #4ce68f 240deg 300deg,
+      #ff9f4c 300deg 360deg
+    );
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 0 6px var(--panel-solid), 0 20px 50px -10px rgba(0,0,0,0.6);
+    transition: transform 3.5s cubic-bezier(0.15, 0.85, 0.2, 1);
+    position: relative;
+  }
+  .wheel-center{
+    width: 76px; height: 76px; border-radius: 50%;
+    background: var(--panel-solid);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Press Start 2P', cursive; font-size: 1.4rem;
+    border: 2px solid var(--border);
+    z-index: 2;
+  }
+  .wheel-pointer{
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 20px solid var(--amber);
+    z-index: 3;
+    filter: drop-shadow(0 3px 4px rgba(0,0,0,0.4));
+  }
+
+  .spin-btn{
+    padding: 16px 34px; border-radius: 14px; font-weight: 800; font-size: 1rem;
+    background: linear-gradient(135deg, var(--amber), #ff9a4c);
+    color: #1a1206; border: none; cursor: pointer;
+    box-shadow: 0 8px 24px rgba(255,184,76,0.3);
+    transition: transform .2s ease;
+    position: relative; z-index: 1;
+  }
+  .spin-btn:hover{ transform: translateY(-3px); }
+  .spin-btn:active{ transform: translateY(0); }
+  .spin-btn:disabled{ opacity: 0.6; cursor: not-allowed; transform: none; }
+
+  .result-box{
+    margin-top: 26px; min-height: 34px;
+    font-size: 1.2rem; font-weight: 800;
+    color: var(--teal);
+    position: relative; z-index: 1;
+    opacity: 0; transform: translateY(8px);
+    transition: opacity .4s ease, transform .4s ease;
+  }
+  .result-box.show{ opacity: 1; transform: translateY(0); }
+
+  .quotes{ display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 20px; }
+  .quote-card{
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 26px;
+    position: relative;
+    transition: transform .3s ease, border-color .3s ease;
+  }
+  .quote-card:hover{ transform: translateY(-6px); border-color: var(--tag-color, var(--amber)); }
+  .quote-mark{
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.8rem;
+    color: var(--tag-color, var(--amber));
+    opacity: 0.5;
+    line-height: 1;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .quote-text{ font-size: 1rem; line-height: 1.9; margin-bottom: 16px; }
+  .quote-author{ font-size: 0.85rem; color: var(--muted); font-weight: 700; }
+  .quote-author span{ color: var(--tag-color, var(--amber)); }
+
+  .quote-card.empty-slot{
+    border-style: dashed; display: flex; align-items: center; justify-content: center;
+    text-align: center; color: var(--muted); min-height: 140px; font-size: 0.9rem;
+  }
+
+  footer{
+    text-align: center; padding: 46px 20px 60px;
+    color: var(--muted); font-size: 0.85rem;
+    border-top: 1px solid var(--border);
+  }
+  footer b{
+    background: linear-gradient(90deg, var(--teal), var(--amber));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="glow a"></div>
+<div class="glow b"></div>
+
+<nav>
+  <div class="brand"><span class="dot-mark"></span> ZRX GAP BLE</div>
+  <div class="navlinks">
+    <a href="index.html">خانه</a>
+    <a href="shop.html">آنلاین شاپ</a>
+    <a href="mutes.html">لیست سکوت‌ها</a>
+    <a href="wall.html">دیوار خاطرات</a>
+  </div>
+</nav>
+
+<header>
+  <span class="badge">🎉 MEMORIES & WHEEL</span>
+  <h1>دیوار <span>خاطرات</span> و قرعه‌کشی</h1>
+  <p class="subtitle">
+    جمله‌های به‌یادموندنی گروه، به‌علاوه یه چرخ‌ونک واقعی برای اینکه امشب معلوم بشه کی بازی رو انتخاب کنه 😎
+  </p>
+</header>
+
+<section id="wheel">
+  <span class="kicker">// قرعه‌کشی</span>
+  <div class="picker-card">
+    <h2>امشب نوبت کیه؟</h2>
+    <p>بزن بچرخه، یکی از شش نفر رندوم انتخاب می‌شه!</p>
+
+    <div class="wheel-wrap">
+      <div class="wheel-pointer"></div>
+      <div class="wheel" id="wheel">
+        <div class="wheel-center">🎯</div>
+      </div>
+    </div>
+
+    <button class="spin-btn" id="spinBtn" onclick="spinWheel()">بچرخون!</button>
+    <div class="result-box" id="resultBox"></div>
+  </div>
+</section>
+
+<section id="quotes">
+  <span class="kicker">// دیوار خاطرات</span>
+  <h2>جمله‌های به‌یادموندنی</h2>
+  <p class="section-note">هرچی تو کال‌ها گفتین که خنده‌دار یا به‌یادموندنی بود، اینجا ثبتش کن.</p>
+
+  <div class="quotes">
+    <div class="quote-card" style="--tag-color:#ffb84c">
+      <span class="quote-mark">"</span>
+      <p class="quote-text">جمله‌ی نمونه رو اینجا بذار، مثلاً یه چیز خنده‌دار که تو کال گفته شد.</p>
+      <p class="quote-author">— <span>اهورا</span></p>
+    </div>
+    <div class="quote-card empty-slot">
+      + جای خالی برای خاطره‌ی بعدی
+    </div>
+    <div class="quote-card empty-slot">
+      + جای خالی برای خاطره‌ی بعدی
+    </div>
+  </div>
+</section>
+
+<footer>
+  دیوار خاطرات <b>ZRX GAP BLE</b> — هر شب یه خاطره‌ی جدید.
+</footer>
+
+<script>
+  const members = ["اهورا", "امیر عباس", "عرفان", "کامیار", "توجی", "آراد"];
+  let currentRotation = 0;
+  let spinning = false;
+
+  function spinWheel(){
+    if(spinning) return;
+    spinning = true;
+
+    const btn = document.getElementById('spinBtn');
+    const wheel = document.getElementById('wheel');
+    const resultBox = document.getElementById('resultBox');
+    btn.disabled = true;
+    resultBox.classList.remove('show');
+
+    const winnerIndex = Math.floor(Math.random() * members.length);
+    const sliceAngle = 360 / members.length;
+    const targetAngle = 360 * 5 - (winnerIndex * sliceAngle + sliceAngle / 2);
+    currentRotation += targetAngle;
+
+    wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+    setTimeout(() => {
+      resultBox.textContent = "🎉 " + members[winnerIndex] + " انتخاب شد!";
+      resultBox.classList.add('show');
+      btn.disabled = false;
+      spinning = false;
+    }, 3600);
+  }
+</script>
+
+</body>
+  </html>
