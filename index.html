@@ -300,6 +300,7 @@
     <a href="#games">بازی‌ها</a>
     <a href="#gallery">گالری</a>
     <a href="shop.html">آنلاین شاپ</a>
+    <a href="mutes.html">لیست سکوت‌ها</a>
   </div>
 </nav>
 
@@ -313,6 +314,7 @@
   </p>
   <div class="cta-row">
     <a class="btn btn-primary" href="shop.html">🛍️ آنلاین شاپ</a>
+    <a class="btn btn-ghost" href="mutes.html">🔇 لیست سکوت‌ها</a>
     <a class="btn btn-ghost" href="#gallery">🖼️ اسکرین‌شات‌ها</a>
     <a class="btn btn-ghost" href="#roster">👥 اعضای گروه</a>
   </div>
@@ -401,40 +403,4 @@
   <div class="shop-banner">
     <h2>یه سری بزن به آنلاین شاپمون 🛍️</h2>
     <p>کانفیگ، آیتم و هرچی که بچه‌های گروه بفروش گذاشتن رو اونجا می‌بینی.</p>
-    <a class="btn btn-primary" href="shop.html">رفتن به آنلاین شاپ ←</a>
-  </div>
-</section>
-
-<section id="join">
-  <div class="glass-card join-card">
-    <h2>می‌خوای بهمون بپیوندی؟</h2>
-    <p>فقط کافیه رو دکمه بزنی و وارد بله بشی.</p>
-    <a class="btn btn-primary" href="https://ble.ir/join/YOUR_INVITE_CODE" target="_blank">➕ پیوستن به گروه ZRX GAP BLE</a>
-  </div>
-</section>
-
-<footer>
-  ساخته‌شده با ❤️ برای گروه <b>ZRX GAP BLE</b> — هر شب یه کال، یه دنیا خاطره.
-</footer>
-
-<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
-  <button class="lightbox-close" onclick="closeLightbox(event)">✕</button>
-  <img id="lightbox-img" src="" alt="نمای بزرگ">
-</div>
-
-<script>
-  function openLightbox(shotEl){
-    const img = shotEl.querySelector('img');
-    if(img.style.display === 'none') return;
-    document.getElementById('lightbox-img').src = img.src;
-    document.getElementById('lightbox').classList.add('open');
-  }
-  function closeLightbox(e){
-    if(e.target.id === 'lightbox' || e.target.classList.contains('lightbox-close')){
-      document.getElementById('lightbox').classList.remove('open');
-    }
-  }
-</script>
-
-</body>
-  </html>
+    <a class="btn
