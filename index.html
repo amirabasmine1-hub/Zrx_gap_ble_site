@@ -267,6 +267,22 @@
   .shop-banner h2{ margin-bottom: 14px; position: relative; z-index: 1; }
   .shop-banner p{ color: var(--muted); margin-bottom: 30px; line-height: 1.95; max-width: 480px; margin-inline: auto; position: relative; z-index: 1; }
 
+  .wall-banner{
+    background: linear-gradient(135deg, rgba(167,139,250,0.14), rgba(76,230,201,0.08));
+    border: 1px solid rgba(167,139,250,0.28);
+    border-radius: 24px;
+    padding: 54px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .wall-banner::before{
+    content: "🎡"; position: absolute; font-size: 8rem; opacity: 0.06;
+    top: -20px; left: -10px; transform: rotate(12deg);
+  }
+  .wall-banner h2{ margin-bottom: 14px; position: relative; z-index: 1; }
+  .wall-banner p{ color: var(--muted); margin-bottom: 30px; line-height: 1.95; max-width: 480px; margin-inline: auto; position: relative; z-index: 1; }
+
   .join-card{ text-align: center; max-width: 540px; margin: 0 auto; padding: 44px; }
   .join-card h2{ margin-bottom: 14px; }
   .join-card p{ color: var(--muted); margin-bottom: 28px; line-height: 1.95; }
@@ -301,6 +317,7 @@
     <a href="#gallery">گالری</a>
     <a href="shop.html">آنلاین شاپ</a>
     <a href="mutes.html">لیست سکوت‌ها</a>
+    <a href="wall.html">دیوار خاطرات</a>
   </div>
 </nav>
 
@@ -326,81 +343,4 @@
   <h2>داستان این گروه چیه؟</h2>
   <div class="about-grid">
     <div class="about-text">
-      <p>همه‌چی از یه کال ساده توی <strong>بله</strong> شروع شد. حالا دیگه شده یه عادت شبونه: جمع می‌شیم، از درس و مدرسه و روزمون می‌گیم تا اخبار گیمینگ، بعد می‌زنیم به دل بازی.</p>
-      <p>هیچ قانون سفت و سختی نداریم، فقط یه چیز مهمه: <strong>هر شب همه هستن.</strong></p>
-    </div>
-    <div class="glass-card">
-      <div class="stat-grid">
-        <div class="stat"><b>۶</b><span>عضو ثابت</span></div>
-        <div class="stat"><b>۲</b><span>بازی اصلی</span></div>
-        <div class="stat"><b>۷</b><span>روز هفته کال</span></div>
-        <div class="stat"><b>∞</b><span>خنده و شوخی</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="roster">
-  <span class="kicker">// اعضای گروه</span>
-  <h2>کسایی که هستن</h2>
-  <div class="roster">
-    <div class="player" style="--tag-color:#ffb84c"><div class="avatar">اه</div><h3>اهورا</h3><p>عضو گروه</p></div>
-    <div class="player" style="--tag-color:#4ce6c9"><div class="avatar">اع</div><h3>امیر عباس</h3><p>عضو گروه</p></div>
-    <div class="player" style="--tag-color:#ff6b8b"><div class="avatar">عر</div><h3>عرفان</h3><p>عضو گروه</p></div>
-    <div class="player" style="--tag-color:#a78bfa"><div class="avatar">کا</div><h3>کامیار</h3><p>عضو گروه</p></div>
-    <div class="player" style="--tag-color:#4ce68f"><div class="avatar">تو</div><h3>توجی</h3><p>عضو گروه</p></div>
-    <div class="player" style="--tag-color:#ff9f4c"><div class="avatar">آر</div><h3>آراد</h3><p>عضو گروه</p></div>
-  </div>
-</section>
-
-<section id="games">
-  <span class="kicker">// چی بازی می‌کنیم</span>
-  <h2>بازی‌های همیشگی‌مون</h2>
-  <div class="games">
-    <div class="game-card minecraft">
-      <span class="game-tag">MINECRAFT</span>
-      <h3>⛏️ ماینکرفت</h3>
-      <p>ساخت‌وساز، معدن‌کاوی، جنگ با کریپرها و گاهی خراب کردن خونه‌ی همدیگه از روی شوخی!</p>
-      <div class="blocks-deco"></div>
-    </div>
-    <div class="game-card roblox">
-      <span class="game-tag">ROBLOX</span>
-      <h3>🕹️ روبلاکس</h3>
-      <p>هر شب یه بازی جدید توی روبلاکس امتحان می‌کنیم و با هم مسابقه می‌دیم.</p>
-      <div class="blocks-deco"></div>
-    </div>
-  </div>
-</section>
-
-<section id="gallery">
-  <span class="kicker">// اسکرین‌شات‌ها</span>
-  <h2>لحظه‌های تو کال و بازی</h2>
-  <div class="gallery">
-    <div class="shot" onclick="openLightbox(this)">
-      <img src="Screenshot_20260803_181851_PojavLauncher%20(Minecraft%20Java%20Edition%20for%20Android).jpg" alt="اسکرین‌شات ماینکرفت" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-      <div class="shot-fallback" style="display:none;"><span>⛏️</span>عکس رو کنار index.html بذار</div>
-      <div class="shot-label">ماینکرفت</div>
-    </div>
-    <div class="shot" onclick="openLightbox(this)">
-      <img src="Screenshot_20260813_160707_Roblox.jpg" alt="اسکرین‌شات روبلاکس" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-      <div class="shot-fallback" style="display:none;"><span>🕹️</span>عکس رو کنار index.html بذار</div>
-      <div class="shot-label">روبلاکس</div>
-    </div>
-    <div class="shot" onclick="openLightbox(this)">
-      <img src="Screenshot_20260812_235607_Bale.jpg" alt="اسکرین‌شات کال" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-      <div class="shot-fallback" style="display:none;"><span>📞</span>عکس رو کنار index.html بذار</div>
-      <div class="shot-label">کال شبانه</div>
-    </div>
-    <div class="shot" onclick="openLightbox(this)">
-      <img src="screenshots/shot4.jpg" alt="اسکرین‌شات گروه" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-      <div class="shot-fallback" style="display:none;"><span>🎉</span>عکس رو کنار index.html بذار</div>
-      <div class="shot-label">خاطرات</div>
-    </div>
-  </div>
-</section>
-
-<section id="shop-promo">
-  <div class="shop-banner">
-    <h2>یه سری بزن به آنلاین شاپمون 🛍️</h2>
-    <p>کانفیگ، آیتم و هرچی که بچه‌های گروه بفروش گذاشتن رو اونجا می‌بینی.</p>
-    <a class="btn
+      <p>همه‌چی از یه کال ساده توی <strong>بله
