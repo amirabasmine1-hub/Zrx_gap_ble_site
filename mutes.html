@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لیست سکوت‌ها | ZRX GAP BLE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #150a0d;
+    --panel: rgba(255,255,255,0.045);
+    --panel-solid: #1f1114;
+    --red: #ff5c6c;
+    --amber: #ffb84c;
+    --muted-clr: #4ce6c9;
+    --text: #f6f0f0;
+    --muted: #a89599;
+    --border: rgba(255,255,255,0.09);
+  }
+  *{ box-sizing: border-box; margin: 0; padding: 0; }
+  html{ scroll-behavior: smooth; }
+  body{ background: var(--bg); color: var(--text); font-family: 'Vazirmatn', sans-serif; overflow-x: hidden; }
+  ::selection{ background: var(--red); color: #150a0d; }
+  a{ color: inherit; text-decoration: none; }
+
+  .bg-grid{
+    position: fixed; inset: 0; z-index: -3; background-color: var(--bg);
+    background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 15%, black 40%, transparent 90%);
+  }
+  .glow{ position: fixed; z-index: -2; border-radius: 50%; filter: blur(120px); opacity: 0.28; pointer-events: none; }
+  .glow.a{ width: 480px; height: 480px; background: var(--red); top: -160px; right: -120px; }
+  .glow.b{ width: 380px; height: 380px; background: var(--amber); bottom: -140px; left: -100px; opacity: 0.16; }
+
+  nav{
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px clamp(20px, 5vw, 60px);
+    backdrop-filter: blur(16px);
+    background: rgba(21,10,13,0.65);
+    border-bottom: 1px solid var(--border);
+  }
+  .brand{ display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1rem; }
+  .brand .dot-mark{ width: 10px; height: 10px; border-radius: 3px; background: var(--red); box-shadow: 0 0 12px var(--red); }
+  .navlinks{ display: flex; gap: 26px; font-size: 0.86rem; color: var(--muted); }
+  .navlinks a{ transition: color .2s ease; }
+  .navlinks a:hover{ color: var(--red); }
+  @media (max-width: 640px){ .navlinks{ display: none; } }
+
+  header{
+    padding: 90px 20px 60px;
+    text-align: center;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .badge{
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: 'Press Start 2P', cursive; font-size: 9px; letter-spacing: 2px;
+    color: var(--red);
+    background: rgba(255,92,108,0.08);
+    border: 1px solid rgba(255,92,108,0.3);
+    padding: 10px 18px; border-radius: 999px;
+    margin-bottom: 28px; direction: ltr;
+  }
+  .badge .pulse{
+    width: 6px; height: 6px; border-radius: 50%; background: var(--red);
+    animation: pulse-ring 1.6s infinite;
+  }
+  @keyframes pulse-ring{
+    0%{ box-shadow: 0 0 0 0 rgba(255,92,108,0.55); }
+    70%{ box-shadow: 0 0 0 9px rgba(255,92,108,0); }
+    100%{ box-shadow: 0 0 0 0 rgba(255,92,108,0); }
+  }
+  h1{ font-size: clamp(2rem, 6vw, 3.2rem); font-weight: 900; margin-bottom: 16px; letter-spacing: -0.01em; }
+  h1 span{ color: var(--red); }
+  .subtitle{ max-width: 540px; color: var(--muted); font-size: 1rem; line-height: 1.95; }
+
+  section{ max-width: 980px; margin: 0 auto; padding: 40px 24px 100px; }
+  .kicker{
+    font-family: 'Press Start 2P', cursive; font-size: 10px; color: var(--muted-clr);
+    direction: ltr; display: inline-block; margin-bottom: 16px;
+    padding: 6px 12px; border: 1px solid rgba(76,230,201,0.3); border-radius: 6px;
+    background: rgba(76,230,201,0.06);
+  }
+  h2{ font-size: clamp(1.4rem, 3.6vw, 1.9rem); font-weight: 900; margin-bottom: 8px; }
+  .section-note{ color: var(--muted); margin-bottom: 34px; line-height: 1.9; font-size: 0.95rem; }
+
+  .mutes{ display: flex; flex-direction: column; gap: 14px; }
+  .mute-row{
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-right: 3px solid var(--red);
+    border-radius: 14px;
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 18px;
+    align-items: center;
+    transition: border-color .2s ease, transform .2s ease;
+  }
+  .mute-row:hover{ transform: translateX(-4px); border-right-color: var(--amber); }
+
+  .mute-icon{
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.35rem;
+    background: var(--panel-solid);
+    border: 1px solid var(--border);
+  }
+
+  .mute-body h3{ font-size: 1.05rem; margin-bottom: 6px; direction: ltr; text-align: right; }
+  .mute-reason{ color: var(--muted); font-size: 0.88rem; margin-bottom: 8px; line-height: 1.8; }
+  .mute-meta{ display: flex; gap: 14px; flex-wrap: wrap; font-size: 0.78rem; color: var(--muted); }
+  .mute-meta .by{ color: var(--amber); font-weight: 700; }
+
+  .mute-duration{
+    padding: 8px 16px; border-radius: 999px;
+    background: rgba(255,92,108,0.12); border: 1px solid rgba(255,92,108,0.35);
+    color: var(--red); font-weight: 800; font-size: 0.82rem; white-space: nowrap;
+  }
+  .mute-duration.expired{
+    background: rgba(255,255,255,0.05); border-color: var(--border); color: var(--muted);
+    text-decoration: line-through;
+  }
+
+  .mute-row.empty-slot{
+    border-style: dashed; border-right-style: solid;
+    display: block; text-align: center; color: var(--muted);
+    padding: 26px;
+  }
+
+  @media (max-width: 640px){
+    .mute-row{ grid-template-columns: 1fr; text-align: center; }
+    .mute-icon{ margin: 0 auto; }
+    .mute-meta{ justify-content: center; }
+    .mute-body h3{ text-align: center; }
+  }
+
+  .rule-card{
+    background: linear-gradient(160deg, var(--panel-solid) 0%, var(--bg) 100%);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 34px;
+    margin-top: 40px;
+    text-align: center;
+  }
+  .rule-card h2{ margin-bottom: 12px; }
+  .rule-card p{ color: var(--muted); line-height: 1.95; font-size: 0.92rem; }
+
+  footer{
+    text-align: center; padding: 46px 20px 60px;
+    color: var(--muted); font-size: 0.85rem;
+    border-top: 1px solid var(--border);
+  }
+  footer b{ color: var(--red); }
+
+  @media (prefers-reduced-motion: reduce){
+    .badge .pulse{ animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="glow a"></div>
+<div class="glow b"></div>
+
+<nav>
+  <div class="brand"><span class="dot-mark"></span> ZRX GAP BLE</div>
+  <div class="navlinks">
+    <a href="index.html">خانه</a>
+    <a href="shop.html">آنلاین شاپ</a>
+    <a href="mutes.html">لیست سکوت‌ها</a>
+  </div>
+</nav>
+
+<header>
+  <span class="badge"><span class="pulse"></span>MUTE LOG • ZRX GAP BLE</span>
+  <h1>لیست <span>سکوت‌ها</span></h1>
+  <p class="subtitle">
+    ثبت شفاف تمام سکوت‌های اعمال‌شده تو گروه — کی، چرا، چقدر و کِی.
+  </p>
+</header>
+
+<section id="mutes">
+  <span class="kicker">// تاریخچه</span>
+  <h2>لیست سکوت‌های ثبت‌شده</h2>
+  <p class="section-note">ترتیب از جدید به قدیم. اگه فکر می‌کنی سکوتت اشتباهه، تو گروه با ادمین صحبت کن.</p>
+
+  <div class="mutes">
+
+    <!-- برای هر مورد جدید، این بلوک رو کپی کن -->
+    <div class="mute-row">
+      <div class="mute-icon">🔇</div>
+      <div class="mute-body">
+        <h3>توجی</h3>
+        <p class="mute-reason">دلیل: نقض کردن قوانین گروه</p>
+        <div class="mute-meta">
+          <span>ثبت‌شده توسط: <span class="by">مدیریت گروه</span></span>
+        </div>
+      </div>
+      <span class="mute-duration">فعال</span>
+    </div>
+
+    <div class="mute-row empty-slot">
+      + جای بعدی — با نقض قوانین، اسم بعدی همینجا اضافه می‌شه
+    </div>
+
+  </div>
+
+  <div class="rule-card">
+    <h2>قوانین گروه</h2>
+    <p>
+      🚫 فحش ممنوع<br>
+      🚫 توهین ممنوع
+    </p>
+    <p style="margin-top:14px;">
+      نقض هرکدوم از این قوانین باعث سکوت شدن تو گروه می‌شه.
+    </p>
+  </div>
+</section>
+
+<footer>
+  ثبت سکوت‌ها برای <b>ZRX GAP BLE</b> — شفاف، منصفانه، برای همه.
+</footer>
+
+</body>
+  </html>
