@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لینک‌های ما</title>
+<style>
+  :root {
+    --bg: #0f0f14;
+    --card: #1a1a24;
+    --card-hover: #22222f;
+    --accent: #7c5cff;
+    --accent2: #00d4ff;
+    --text: #eaeaf2;
+    --muted: #9a9aad;
+    --border: #2c2c3a;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: "Vazirmatn", "Tahoma", sans-serif;
+    background: radial-gradient(circle at top, #171722, var(--bg));
+    color: var(--text);
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  header h1 {
+    font-size: 1.9rem;
+    margin: 0 0 8px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  header p {
+    color: var(--muted);
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  .links-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .link-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 18px;
+    text-decoration: none;
+    color: var(--text);
+    transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .link-card:hover {
+    background: var(--card-hover);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .link-icon {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #0f0f14;
+  }
+
+  .link-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    overflow: hidden;
+  }
+
+  .link-title {
+    font-weight: 600;
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .link-url {
+    font-size: 0.82rem;
+    color: var(--muted);
+    direction: ltr;
+    text-align: right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .link-arrow {
+    margin-right: auto;
+    color: var(--muted);
+    font-size: 1.2rem;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>لینک‌های ما</h1>
+      <p>مجموعه‌ای از سایت‌های مرتبط و مفید</p>
+    </header>
+
+    <div class="links-list">
+      <a class="link-card" href="https://config-store.zrxmine.workers.dev" target="_blank" rel="noopener noreferrer">
+        <div class="link-icon">C</div>
+        <div class="link-info">
+          <span class="link-title">Config Store</span>
+          <span class="link-url">config-store.zrxmine.workers.dev</span>
+        </div>
+        <span class="link-arrow">←</span>
+      </a>
+
+      <!-- برای لینک بعدی این بلوک رو کپی کن و اطلاعاتشو عوض کن:
+      <a class="link-card" href="https://example.com" target="_blank" rel="noopener noreferrer">
+        <div class="link-icon">E</div>
+        <div class="link-info">
+          <span class="link-title">اسم سایت</span>
+          <span class="link-url">example.com</span>
+        </div>
+        <span class="link-arrow">←</span>
+      </a>
+      -->
+    </div>
+
+    <footer>
+      &copy; 2026 - همه لینک‌ها در تب جدید باز می‌شوند
+    </footer>
+  </div>
+</body>
+</html>
